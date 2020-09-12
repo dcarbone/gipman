@@ -68,7 +68,7 @@ func main() {
 		log.Error().Err(err).Msg("Abnormal exit")
 		os.Exit(1)
 	case sig := <-sigc:
-		log.Warn().Str("signal", sig.String()).Msg("Processing exiting")
+		log.Warn().Str("signal", sig.String()).Msg("Exiting")
 		os.Exit(0)
 	}
 }
