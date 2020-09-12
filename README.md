@@ -3,7 +3,7 @@
 simple ip geolocation service thing
 
 ## usage
-for the lazy, head over to https://dcarbone.dev/gipman/
+for the lazy, head over to https://dcarbone.dev/gipman/docs/
 
 ## self-usage
 1. create an account over at https://dev.maxmind.com/geoip/geoip2/geolite2/

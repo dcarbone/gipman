@@ -35,8 +35,8 @@ func main() {
 	fs = flag.NewFlagSet("gipman", flag.ContinueOnError)
 
 	fs.StringVar(&svc.httpAddr, "bind-http", ":8283", "Address and port to bind http")
-	fs.StringVar(&gm.confFile, "geolite-conf", "/tmp/GeoIP.conf", "GeoLite 2 updater conf file")
-	fs.StringVar(&gm.dbDir, "geolite-db-dir", "/tmp/db/", "Directory to store GeoLite 2 binary databases")
+	fs.StringVar(&gm.confFile, "geolite-conf", "/tmp/gipman/GeoIP.conf", "GeoLite 2 updater conf file")
+	fs.StringVar(&gm.dbDir, "geolite-db-dir", "/tmp/gipman/db/", "Directory to store GeoLite 2 binary databases")
 	fs.StringVar(&gm.updateInterval, "update-interval", "168h", "Rate at which to update GeoLite 2 Country DB [default=7 days]")
 
 	log = zerolog.New(zerolog.NewConsoleWriter(zerologWriterConfig)).

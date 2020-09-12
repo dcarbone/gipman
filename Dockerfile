@@ -19,7 +19,10 @@ RUN apk add --upgrade --no-cache tzdata
 
 WORKDIR /opt/gipman
 COPY --from=build-stage /build/gipman ./
-COPY tmp /tmp
+COPY tmp /tmp/gipman
+COPY openapi /tmp/gipman/openapi
+
+RUN chgrp -R nobody /tmp/gipman
 
 USER nobody
 

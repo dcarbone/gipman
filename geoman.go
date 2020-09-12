@@ -26,13 +26,17 @@ import (
 
 type LookupRequest struct {
 	SourceIP           string   `json:"source_ip"`
-	MinimumConfidence  uint16   `json:"minimum_confidence"`
+	MinimumConfidence  *uint16  `json:"minimum_confidence,omitempty"`
 	WhitelistCountries []string `json:"whitelist_countries"`
 }
 
 func (r LookupRequest) MarshalZerologObject(ev *zerolog.Event) {
 	ev.Str("source_ip", r.SourceIP)
-	ev.Uint16("minimum_confidence", r.MinimumConfidence)
+	if r.MinimumConfidence == nil {
+		ev.Uint16("minimum_confidence", 0)
+	} else {
+		ev.Uint16("minimum_confidence", *r.MinimumConfidence)
+	}
 	ev.Strs("whitelist_countries", r.WhitelistCountries)
 }
 
@@ -263,7 +267,7 @@ func (g *geoman) lookupCountry(req LookupRequest) (LookupResult, error) {
 			asUint uint64
 			err    error
 		)
-		if lookup.Country.Confidence < req.MinimumConfidence {
+		if req.MinimumConfidence != nil && lookup.Country.Confidence < *req.MinimumConfidence {
 			continue
 		}
 
