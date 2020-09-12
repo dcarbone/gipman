@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -266,13 +267,15 @@ func (g *geoman) lookupCountry(req LookupRequest) (LookupResult, error) {
 		var (
 			asUint uint64
 			err    error
+
+			lt = strings.ToLower(target)
 		)
 		if req.MinimumConfidence != nil && lookup.Country.Confidence < *req.MinimumConfidence {
 			continue
 		}
 
 		for _, cname := range lookup.Country.Names {
-			if cname == target {
+			if strings.ToLower(cname) == lt {
 				res = append(res, LookupMatch{
 					GeoNameID:    lookup.Country.GeoNameID,
 					MatchedType:  "country_name",
