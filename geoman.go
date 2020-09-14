@@ -185,14 +185,14 @@ func (g *geoman) handle() error {
 			log.Error().Err(err).Msg("Error updating GeoLite 2 databases!")
 		} else {
 			log.Info().Msg("GeoLite 2 databases updated successfully")
-		}
-		if tmpReader, err = g.buildCountryReader(); err != nil {
-			log.Error().Err(err).Msg("Error reconstructing country reader")
-		} else {
-			log.Info().Msg("Country reader reconstructed")
-			g.readerMu.Lock()
-			g.reader = tmpReader
-			g.readerMu.Unlock()
+			if tmpReader, err = g.buildCountryReader(); err != nil {
+				log.Error().Err(err).Msg("Error reconstructing country reader")
+			} else {
+				log.Info().Msg("Country reader reconstructed")
+				g.readerMu.Lock()
+				g.reader = tmpReader
+				g.readerMu.Unlock()
+			}
 		}
 		updateTimer.Reset(g.updateIntervalD)
 	}
